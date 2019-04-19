@@ -18,3 +18,5 @@
 
 ## example使用示例
 index.html文件可以参看使用方法。
+
+![图片发自简书App](dist/lewinValidator.gif)
