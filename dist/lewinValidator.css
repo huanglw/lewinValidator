@@ -1,0 +1,41 @@
+/*//表单必填选项标注.layui-input-block*/
+.not-null{}
+.not-null::after {
+	content: "*";
+	color: red;
+	position: absolute;
+	right: 0;
+	top: 4px;
+	font-size: 24px;
+	display: inline-block;
+	font-weight: 800;
+}
+
+/*//表单验证失败样式*/
+.verifyFailed{}
+.verifyFailed::before{
+	content: "验证未通过";
+	color: red;
+	position: absolute;
+	right: 0;
+	top: 10px;
+	font-size: 12px;
+	display: inline-block;
+	width: 64px;
+	height: 20px;
+	/* background: black; */
+	z-index: 1000;
+	transition-duration: 1s;
+}
+
+/*修改bootstrap样式*/
+@media (min-width:320px) and (max-width: 970px){
+	.form-horizontal .control-label {
+	    padding-top: 7px;
+	    margin-bottom: 0;
+	    text-align: right;
+	}
+	input{
+		border-color:#ccc;
+	}
+}
