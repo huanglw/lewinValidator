@@ -1,6 +1,6 @@
 
 
-# 实现配合Bootstrap使用的一个表单验证工具lewinValidator
+# 实现适配Bootstrap使用的一个表单验证工具lewinValidator
 
 # 介绍
 
@@ -45,6 +45,59 @@
 index.html文件可以参看使用方法。演示效果如下：
 
 ![图片发自简书App](<https://raw.githubusercontent.com/huanglw/lewinValidator/master/image/lewinValidator.gif>)
+
+## 表单验证注意事项
+### 取值去除前后空字符串进行验证
+而不能直接通过字符串长度验证，这样的话一串空字符串也能满足验证；value.trim();
+### 数字判断
+[纯js判断](https://stackoverflow.com/questions/9716468/pure-javascript-a-function-like-jquerys-isnumeric)
+```
+function isNumeric(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+}
+```
+
+### 提交按钮防止多次提交的解决办法
+#### post方法改成put方法
+了解一下幂等性。
+#### 方法二
+https://stackoverflow.com/questions/16814157/how-to-prevent-users-from-submitting-a-form-twice
+通过禁用按钮
+下面一段有问题的代码：
+```
+//#add-submit是表单#edit-form中的submit按钮
+$('#add-submit').on('click', function(e){//由于使用ajax提交数据，把默认事件阻止了
+    e.preventDefault();
+});//阻止默认事件
+document.getElementById('edit-form').addEventListener('submit', function(){
+    console.log("disabled button");
+    document.getElementById('add-submit').disabled = true;
+})
+```
+由上面的代码可以看到我给提交按钮加了点击事件用来阻止默认事件，然后给表单的submit事件增加了禁用按钮代码；
+问题：`表单提交过程中，根本没有执行form的submit事件`
+原因：`click事件在表单的submit事件之前触发，阻止默认事件之后，form提交事件自然也就不会发生了`
+解决： `把阻止提交按钮默认事件代码注释掉就可以了`
+```
+//#add-submit是表单#edit-form中的submit按钮
+<!-- $('#add-submit').on('click', function(e){//由于使用ajax提交数据，把默认事件阻止了
+    e.preventDefault();
+});//阻止默认事件 -->
+document.getElementById('edit-form').addEventListener('submit', function(){
+    console.log("disabled button");
+    document.getElementById('add-submit').disabled = true;
+})
+```
+一个问题：submit默认事件，导致formdata参数填到url上
+解决办法：阻止submit的默认事件
+```
+//防止多次提交
+  document.getElementById('edit-form').addEventListener('submit', function(e){
+      console.log("disabled button");
+      document.getElementById('add-submit').disabled = true;
+      e.preventDefault();//---------->增加阻止默认事件代码
+  })
+```
 
 > 源码地址： <https://github.com/huanglw/lewinValidator>
 

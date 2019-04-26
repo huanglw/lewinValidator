@@ -169,6 +169,13 @@ lewinValidator.register('can-null',function(vv){
 		return "";
 	}
 });
+lewinValidator.register('number',function(vv){
+	if(!(!isNaN(parseFloat(vv)) && isFinite(vv))){
+		return "只能是数字";
+	}else{
+		return "";
+	}
+});
 
 
 //******用法******//
