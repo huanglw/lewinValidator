@@ -98,6 +98,10 @@ document.getElementById('edit-form').addEventListener('submit', function(){
       e.preventDefault();//---------->增加阻止默认事件代码
   })
 ```
+### 阻止表单多次提交的思路
+因为使用自定应ajax提交表单数据。所以第一次点击提交，submit事件中diabled提交按钮，禁用提交的默认事件；
+如果数据添加成功，则弹窗自动关闭，不用再管禁用的提交按钮；
+如果操作失败，则在失败的判断逻辑里面恢复disabled的提交按钮；
 
 > 源码地址： <https://github.com/huanglw/lewinValidator>
 
